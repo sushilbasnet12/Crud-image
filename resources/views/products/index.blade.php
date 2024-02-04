@@ -16,7 +16,7 @@
     <nav class="navbar navbar-expand-sm bg-dark">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link text-light" href="/">Products</a>
+            <a class="nav-link text-light" href="{{ route('product.index') }}">Products</a>
           </li>
           
         </ul>
@@ -25,7 +25,7 @@
     <div class="container">
 
         <div class="text-right">
-            <a href="{{ route("product.create") }}" class="btn btn-dark mt-2">New product </a>
+            <a href="{{ route("product.create") }}" class="btn btn-success mt-2">New product </a>
         </div>
 
         <table class="table table-hover mt-3">
@@ -33,6 +33,7 @@
               <tr>
                  <th>S No.</th>
                  <th>Name</th>
+                 <th>Description</th>
                  <th>Image</th>
                  <th>Action</th>
               </tr>
@@ -40,25 +41,31 @@
          <tbody>
 
           {{-- Display dynamic data  --}}
-          @foreach ($products as $product )
+          @foreach ($products as $i=>$product )
+          
           <tr>
-                <td>{{ $loop->index+1}}</td>
+                <td>{{ $i+1}}</td>
+
                 <td>{{  $product->name }}</td>
+                <td>{{  $product->description }}</td>
                 <td>
-                  <img src="products/{{  $product->image }}" class="rounded-circle"
-                  width="50" height="40" />
+                  <img src="{{ asset('products/' . $product->image ) }}" class="rounded-circle"
+                  width="50" height="40" /> 
+    
                 </td>
-                <td>
-                  <a href="" class="btn btn-dark btn-small"> Edit </a>
+                <td class="d-flex">
+                  <a class="btn btn-primary" href="{{ route("product.edit", $product->id) }}"> Edit </a>
+                  <form action="{{ route('product.destroy',$product->id) }}" method="POST">
+                    @method("DELETE")
+                    @csrf 
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
                 </td>
-            </tr>
-            
+              </tr>
           @endforeach
-           
          </tbody>
       </table>
         
     </div>
-    
 </body>
 </html>
