@@ -15,7 +15,7 @@ class ProductController extends Controller
     }
 
     public function edit($id){
-        $product = Product::where('id', $id)->first();
+        $product = Product::find($id);
         return view("products.edit",["product" => $product]);
     }
 
@@ -43,11 +43,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('product.index')->withSuccess('Product Updated !!!'); //Flash Message
-        
-
-
-    
+        return redirect()->route('product.index')->with('success', 'Product Updated !!!'); //Flash Message        
     }
 
     public function store(Request $request){
@@ -72,7 +68,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('product.index')->withSuccess('Product Created !!!');  //Flash Message
+        return redirect()->route('product.index')->with('Success','Product Created !!!');  //Flash Message
 
 
     }
