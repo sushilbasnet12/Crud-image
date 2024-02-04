@@ -33,11 +33,13 @@
       <div class="row justify-content-center">
         <div class="col-sm-8">
           <div class="card mt-3 p-3">
-            <form method="POST" action="{{ route("product.store") }}" enctype="multipart/form-data">
+            <h3>Product Edit #{{ $product->name }}</h3>
+            <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
               @csrf
+              @method('PUT')
               <div class="form-group">
                 <label> Name </label>
-                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                <input type="text" name="name" class="form-control" value="{{ old('name',$product->name) }}">
 
                 {{-- form Validation for name --}}
                 @if($errors->has('name'))
@@ -47,7 +49,7 @@
               </div>
               <div class="form-group">
                 <label> Description </label>
-                <input type="text" class="form-control" rows="4" name="description" value="{{ old('description') }}">
+                <input type="text" class="form-control" rows="4" name="description" value="{{ old('description',$product->description) }}">
 
                 {{-- form validation for description --}}
                 @if($errors->has('description'))
@@ -57,7 +59,7 @@
 
               <div class="form-group">
                 <label>Image</label>
-                <input type="file" name="image" class="form-control">
+                <input type="file" name="image" class="form-control" value="{{ old('image') }}">
 
                 {{-- form validation for image --}}
                 @if($errors->has('image'))
@@ -65,14 +67,11 @@
                 @endif
               </div>
 
-              <button type="submit" class="btn btn-dark">Submit</button>
-
-              <a href="{{ route('product.index') }}" class="btn btn-danger">Cancel</a>
+              <button type="submit" class="btn btn-dark">Update</button>
             </form>
           </div>
-
         </div>
       </div> 
     </div> 
-
+</body>
 </html>
