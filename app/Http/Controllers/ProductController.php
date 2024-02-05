@@ -68,16 +68,16 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('product.index')->with('Success','Product Created !!!');  //Flash Message
+        return redirect()->route('product.index')->with('success','Product Created !!!');  //Flash Message
 
 
     }
 
     public function destroy($id)
     {
-        $product = Product::where('id',$id)->first();
+        $product = Product::find($id)->first();
         $product->delete();
-        return back()->withSuccess('Product Deleted !!!');
+        return back()->with('success','Product Deleted !!!');
     }
 
 
