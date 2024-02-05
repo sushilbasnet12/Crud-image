@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,5 @@ use Illuminate\Support\Facades\Route;
 // Route::post('product/store', [ProductController::class,'store'])->name('products.store');
 
 Route::resource('product', ProductController::class);
+
+Route::resource('order', OrderController::class);
