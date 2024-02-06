@@ -68,7 +68,11 @@ class ProductController extends Controller
 
         $product->save();
 
+<<<<<<< HEAD
         return redirect()->route('product.index')->with('success','Product Created !!!');  //Flash Message
+=======
+        return redirect()->route('product.index')->with('Success','Product Created !!!');  //Flash Message
+>>>>>>> 512a88d (Final final Version)
 
 
     }
