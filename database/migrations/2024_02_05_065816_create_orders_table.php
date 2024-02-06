@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('customer_name');
             $table->string('customer_address');
-            $table->unsignedBigInteger('product_id');
+            $table->string('product_types');
+            $table->unsignedBigInteger('product_id'); //foreign Key Used.  
             $table->timestamps();
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

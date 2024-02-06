@@ -22,17 +22,18 @@
         </ul>
       </nav>
 
-      <h2 class="text-center">Add Order</h2>
+      <h2 class="text-center">Edit Order</h2>
 
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-sm-8">
           <div class="card mt-3 p-3">
-            <form method="POST" action="{{ route("order.store") }}">
+            <form method="POST" action="{{ route("order.update", $order->id) }}">
               @csrf
+              @method('PUT')
               <div class="form-group">
                 <label> Customer Name </label>
-                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                <input type="text" name="name" class="form-control" value="{{ old('name', $order->customer_name) }}">
 
                 {{-- form Validation for customer name --}}
                 @if($errors->has('name'))
@@ -42,7 +43,7 @@
               </div>
               <div class="form-group">
                 <label> Customer Address </label>
-                <input type="text" class="form-control" name="address" value="{{ old('address') }}">
+                <input type="text" class="form-control" name="address" value="{{ old('address', $order->customer_address) }}">
 
                 {{-- form validation for customer address --}}
                 @if($errors->has('address'))
@@ -58,7 +59,7 @@
 
               <div class="form-group">
                 <label for="">Product Type </label>
-                  <select style="width: 100%;padding: 8px;background:white;border: solid 1px grey;" name="types" id="">
+                  <select style="width: 100%;padding: 8px;background:white;border: solid 1px grey;" name="types" id="" value="{{ old('types', $order->product_types) }}">
                     <option value="clothes">Clothes</option>
                     <option value="shoes">Shoes</option>
                     <option value="kitchen">Kitchen Items</option>
@@ -67,7 +68,7 @@
               </div>
             
 
-              <button type="submit" class="btn btn-dark">Submit</button>
+              <button type="submit" class="btn btn-dark">Update</button>
 
               <a href="{{ route('order.index') }}" class="btn btn-danger">Cancel</a>
             </form>

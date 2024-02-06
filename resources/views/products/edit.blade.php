@@ -29,7 +29,6 @@
             <h3>Product Edit #{{ $product->name }}</h3>
             <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
               @csrf
-              @csrf
               @method('PUT')
               <div class="form-group">
                 <label> Name </label>

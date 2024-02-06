@@ -35,11 +35,29 @@
                  <th>Customer Name</th>
                  <th>Customer Address</th>
                  <th>Product Type</th>
-                 <th>Product ID</th>
                  <th>Action</th>
               </tr>
           </thead>
          <tbody>
+
+          @foreach ($order as $i=>$order )
+          
+          <tr>
+                <td>{{ $i+1}}</td>
+
+                <td>{{  $order->customer_name }}</td>
+                <td>{{  $order->customer_address }}</td>
+                <td>{{  $order->product_types }}</td>
+                <td class="d-flex">
+                  <a class="btn btn-primary" href="{{ route("order.edit", $order->id) }}"> Edit </a>
+                  <form action="{{ route('order.destroy',$order->id) }}" method="POST">
+                    @method("DELETE")
+                    @csrf 
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+          @endforeach
     </div>
 </body>
 </html>
