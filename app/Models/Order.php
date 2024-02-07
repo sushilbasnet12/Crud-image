@@ -9,11 +9,11 @@ class Order extends Model
 {
     protected $primaryKey = 'id';
 
-    protected $fillable = ["customer_name", "customer_address", "product_type"];
+    protected $fillable = ["customer_name", "customer_address","product_types", "product_id"];
 
     protected $table = 'orders';
 
-    public function products()
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }

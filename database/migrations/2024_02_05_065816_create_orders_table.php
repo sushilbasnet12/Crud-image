@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('customer_name');
             $table->string('customer_address');
             $table->string('product_types');
-            $table->unsignedBigInteger('product_id'); //foreign Key Used.  
+            $table->unsignedBigInteger('product_id')->nullable(); //Assigning foreign Key 
             $table->timestamps();
-            $table->foreign('product_id')->references('id')->on('products');
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');  // defining a foreign key in orders table
         });
     }
 

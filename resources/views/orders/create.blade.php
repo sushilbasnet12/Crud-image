@@ -50,22 +50,26 @@
                 @endif
               </div>
 
-              {{-- <div class="form-group">
-                <label>Product Type </label>
-                <input type="text" class="form-control" name="" value="{{ old('description') }}">
-                
-              </div> --}}
-
               <div class="form-group">
                 <label for="">Product Type </label>
-                  <select style="width: 100%;padding: 8px;background:white;border: solid 1px grey;" name="types" id="">
+                  <select style="width: 100%;padding: 8px;background:white;border: solid 1px grey;" name="product_types" id="">
                     <option value="clothes">Clothes</option>
                     <option value="shoes">Shoes</option>
                     <option value="kitchen">Kitchen Items</option>
                  </select>
                  
               </div>
-            
+
+              <div class="form-group">
+                <label for="">Product</label>
+                  <select style="width: 100%;padding: 8px;background:white;border: solid 1px grey;" name="product_id" id="">
+                    @foreach ($products as $product)
+                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    @endforeach
+                    
+                 </select>
+                 
+              </div>
 
               <button type="submit" class="btn btn-dark">Submit</button>
 

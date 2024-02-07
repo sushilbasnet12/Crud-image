@@ -59,10 +59,21 @@
 
               <div class="form-group">
                 <label for="">Product Type </label>
-                  <select style="width: 100%;padding: 8px;background:white;border: solid 1px grey;" name="types" id="" value="{{ old('types', $order->product_types) }}">
+                  <select style="width: 100%;padding: 8px;background:white;border: solid 1px grey;" name="types" id="">
                     <option value="clothes">Clothes</option>
                     <option value="shoes">Shoes</option>
                     <option value="kitchen">Kitchen Items</option>
+                 </select>
+                 
+              </div>
+
+              <div class="form-group">
+                <label for="">Product</label>
+                  <select style="width: 100%;padding: 8px;background:white;border: solid 1px grey;" name="product_id" id="">
+                    @foreach ($products as $product)
+                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    @endforeach
+                    
                  </select>
                  
               </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
@@ -12,13 +13,33 @@ class OrderController extends Controller
     }
 
     public function create(){
-        return view("orders.create");
+    
+        return view("orders.create", ["products"=> Product::get()]);
     }
 
 
     public function edit($id){
         $order = Order::find($id);
-        return view("orders.edit", ['order' => $order]);
+        return view("orders.edit", ['order' => $order, "products"=> Product::get()]);
+    }
+
+    public function store(Request $request){ 
+        
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'product_types' => 'required', 
+            'product_id' => 'required',           
+            ]);
+
+            $order=new Order;
+            $order->customer_name = $request->name;
+            $order->customer_address = $request->address;
+            $order->product_types = $request->product_types;
+            $order->product_id = $request->product_id;
+            $order->save();
+
+            return redirect()->route('order.index')->with('success','Order Created !!!');
     }
 
     public function update(Request $request, $id){
@@ -26,37 +47,22 @@ class OrderController extends Controller
         $request->validate([
             'name' => 'required',
             'address' => 'required',
-            'types' => 'required'
+            'types' => 'required',
+            'product_id' => 'required',
             ]);
 
             $order = Order::find($id);
             $order->customer_name = $request->name;
             $order->customer_address = $request->address;
             $order->product_types = $request->types;
+            $order->product_id = $request->product_id;
             $order->save();
 
             return redirect()->route('order.index')->with('success','Order updated !!!');
     }
 
-    public function store(Request $request){
-        
-        $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'types' => 'required'
-            ]);
-
-            $order=new Order;
-            $order->customer_name = $request->name;
-            $order->customer_address = $request->address;
-            $order->product_types = $request->types;
-            $order->save();
-
-            return redirect()->route('order.index')->with('success','Order Created !!!');
-    }
-
-
-
+    
+    
     public function destroy($id)
     {
         $order = Order::find($id);

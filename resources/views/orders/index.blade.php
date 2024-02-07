@@ -22,6 +22,12 @@
         </ul>
       </nav>
 
+      @if ($message = Session::get('success'))
+      <div class="alert alert-success alert-block">
+       <strong> {{  $message }}</strong>
+      </div>
+   @endif
+
     <div class="container">
 
         <div class="text-right">
@@ -34,7 +40,8 @@
                  <th>S No.</th>
                  <th>Customer Name</th>
                  <th>Customer Address</th>
-                 <th>Product Type</th>
+                 <th>Product Types</th>
+                 <th> Product </th>
                  <th>Action</th>
               </tr>
           </thead>
@@ -48,6 +55,7 @@
                 <td>{{  $order->customer_name }}</td>
                 <td>{{  $order->customer_address }}</td>
                 <td>{{  $order->product_types }}</td>
+                <td>{{ $order->product->name }}</td>
                 <td class="d-flex">
                   <a class="btn btn-primary" href="{{ route("order.edit", $order->id) }}"> Edit </a>
                   <form action="{{ route('order.destroy',$order->id) }}" method="POST">
