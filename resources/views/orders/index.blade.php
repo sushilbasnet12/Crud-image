@@ -41,7 +41,7 @@
                  <th>Customer Name</th>
                  <th>Customer Address</th>
                  <th>Product Types</th>
-                 <th> Product </th>
+                 <th>Product </th>
                  <th>Action</th>
               </tr>
           </thead>

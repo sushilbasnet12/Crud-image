@@ -60,9 +60,9 @@
               <div class="form-group">
                 <label for="">Product Type </label>
                   <select style="width: 100%;padding: 8px;background:white;border: solid 1px grey;" name="types" id="">
-                    <option value="clothes">Clothes</option>
-                    <option value="shoes">Shoes</option>
-                    <option value="kitchen">Kitchen Items</option>
+                    <option value="clothes" {{ $order->product_types == 'clothes' ? 'selected' : '' }}>Clothes</option>
+                    <option value="shoes" {{ $order->product_types == 'shoes' ? 'selected' : '' }}>Shoes</option>
+                    <option value="kitchen" {{ $order->product_types == 'kitchen' ? 'selected' : '' }}>Kitchen</option>
                  </select>
                  
               </div>
@@ -71,7 +71,7 @@
                 <label for="">Product</label>
                   <select style="width: 100%;padding: 8px;background:white;border: solid 1px grey;" name="product_id" id="">
                     @foreach ($products as $product)
-                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    <option value="{{ $product->id }}" {{ $product->id == $order->product_id ? 'selected' : '' }}>{{ $product->name }}</option>
                     @endforeach
                     
                  </select>
