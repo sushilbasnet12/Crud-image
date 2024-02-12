@@ -16,9 +16,8 @@
     <nav class="navbar navbar-expand-sm bg-dark">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link text-light" href="{{ route('product.index') }}">Products</a>
+            <a class="nav-link text-light"  text-right href="{{ route('product.index') }}">Products</a>
           </li>
-          
         </ul>
       </nav>
 
