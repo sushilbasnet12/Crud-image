@@ -10,40 +10,29 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $request;
-
+    // protected $request;
     protected $redirectTo = '/home';
+
+    protected $username;
 
     // Inject the Request instance into the constructor
     public function __construct(Request $request)
     {
         $this->middleware('guest')->except('logout');
-        $this->request = $request; // Assign the injected Request instance to the class property
     }
 
-    protected function attemptLogin(Request $request)
-    {
-        $this->username(); // Set the username property before attempting login
-        return $this->guard()->attempt(
-            $this->credentials($request), $request->filled('remember')
-        );
-    }
 
-    public function credentials(Request $request)
+    public function username()
     {
-        $login = $request->input('user_name');
-
-        return [
-            filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name' => $login,
-            'password' => $request->input('password'),
-        ];
-    }
-
-    protected function validateLogin(Request $request)
-    {
-        $request->validate([
-            'user_name' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        //get input value
+        $loginValue = request('user_name');
+        //check if its an email or just a text
+        $this->username = filter_var($loginValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
+        //merge values
+        request()->merge([$this->username => $loginValue]);
+        //return login type
+        return property_exists($this, 'username') ? $this->username : 'email';
     }
 }
+
+//    
