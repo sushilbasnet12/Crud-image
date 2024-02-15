@@ -59,6 +59,10 @@ class RegisterController extends Controller
             ->symbols(),
             ],
             'phone_number' => ['required', 'string' ,'max:13'],
+            'user_name' => ['required', 'string', 'max:20','unique:users'],
+    // ], 
+    //     [
+    //         'user_name.unique' => 'This username is already taken. Please choose another one.',
         ]);
     }
 
@@ -74,7 +78,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'phone_number' => $data['phone_number']
+            'phone_number' => $data['phone_number'],
+            'user_name' => $data['user_name']
         ]);
     }
 }
