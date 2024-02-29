@@ -34,11 +34,12 @@ class ProductController extends Controller
         $product = new  Product;
         $product->name = $request->name;
         $product->description = $request->description;
+        $product->save();
 
         // Handling Image with Spatie MediaLibrary
         $product->addMediaFromRequest('image')->toMediaCollection('products');
 
-        $product->save();
+
         return redirect()->route('product.index')->with('success', 'Product Created !!!');  //Flash Message
     }
     public function update(Request $request, $id)
@@ -65,11 +66,16 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('success', 'Product Updated !!!'); //Flash Message        
     }
 
-
-
     public function destroy($id)
     {
-        $product = Product::find($id)->first();
+        $product = Product::find($id);
+
+        // Delete associated media files
+        $product->getMedia('products')->each(function ($media) {
+            $media->delete();
+        });
+
+        // Delete the product
         $product->delete();
         return back()->with('success', 'Product Deleted !!!');
     }
